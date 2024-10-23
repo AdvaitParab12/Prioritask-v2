@@ -19,32 +19,45 @@
       <a class="flex-none">
         <ul class="menu menu-horizontal px-1">
           <li>
-            <a href="https://github.com/advait0012/Prioritask-v2"
+            <a
+              href="https://github.com/advait0012/Prioritask-v2"
+              target="_blank"
               ><i class="ti ti-brand-github text-2xl"></i
             ></a>
           </li>
         </ul>
       </a>
     </div>
-    <main class="container h-screen flex items-start">
-      <div class="card bg-base-100 w-64 md:w-80 lg:w-96 shadow-xl mx-auto ">
+    <main class="container h-screen flex items-start justify-center">
+      <div class="card bg-base-100 w-64 md:w-80 lg:w-96 shadow-xl">
         <figure>
           <img
             src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Shoes" />
+            alt="Pattern"
+          />
         </figure>
         <div class="card-body">
-          <h2 class="card-title">Prioritask</h2>
-          <p>Conquer Your Day, One Task at a Time!</p>
-          <div class="card-actions justify-end">
-            <button class="btn btn-primary">Buy Now</button>
+          <h1 class="card-title">Prioritask</h1>
+          <form data-form>
+            <input type="text" placeholder="Add Task" class="input input-bordered w-full max-w-xs rounded-xl" />
+          </form>
+          <div class="form-control data-task-container">
+            <label class="label cursor-pointer">
+              <span class="label-text">Remember me</span>
+              <input type="checkbox" checked="checked" class="checkbox rounded-2xl" />
+            </label>
           </div>
         </div>
       </div>
     </main>
     <footer class="footer footer-center bg-base-300 text-base-content p-4">
       <aside>
-        <p>Copyright © {new Date().getFullYear()} - All right reserved by <a class="text-sky-500" href="https://github.com/advait0012">advait0012</a> </p>
+        <p>
+          Copyright © {new Date().getFullYear()} - All right reserved by
+          <a class="text-sky-500" href="https://github.com/advait0012"
+            >advait0012</a
+          >
+        </p>
       </aside>
     </footer>
     <script type="module" src="src/main.js"></script>
