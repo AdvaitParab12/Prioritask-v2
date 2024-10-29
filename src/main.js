@@ -6,13 +6,24 @@ const formEl = document.querySelector("[data-form]");
 const inputEl = document.querySelector("[data-user-input]");
 const taskContainerEl = document.querySelector("[data-task-container]");
 
-const state = [];
+let state = [];
+
+function toggleCompleted(id) {
+  state = state.map((task) => {
+    if (task.id === id) {
+      return { ...task, isCompleted: !task.isCompleted };
+    }
+    return task;
+  });
+ 
+  
+}
 
 function renderTask() {
   taskContainerEl.innerHTML = "";
   const frag = document.createDocumentFragment();
   state.forEach((task) => {
-    frag.appendChild(SingleTask(task.task, task.isCompleted,task.id));
+    frag.appendChild(SingleTask(task.task, task.isCompleted, task.id));
   });
   taskContainerEl.appendChild(frag);
 }
@@ -20,24 +31,20 @@ function renderTask() {
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
   if (!inputEl.value) return;
-
   const newTask = {
     task: titleCase(inputEl.value),
     isCompleted: false,
     id: state.length,
   };
-
   state.unshift(newTask);
-  
   renderTask();
-
   inputEl.value = "";
 });
 
-taskContainerEl.addEventListener("click",(e)=>{
-  console.log(e.target.id)
-  
-})
+taskContainerEl.addEventListener("click", (e) => {
+  toggleCompleted(+e.target.id);
+  renderTask()
+});
 
 const showYear = document.querySelector(".show-year");
 showYear.textContent = new Date().getFullYear();
