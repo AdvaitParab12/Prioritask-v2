@@ -1,6 +1,6 @@
 import "./index.css";
 import SingleTask from "./components/SingleTask";
-import { titleCase } from "./utils";
+import { titleCase, randomID } from "./utils";
 
 const formEl = document.querySelector("[data-form]");
 const inputEl = document.querySelector("[data-user-input]");
@@ -15,8 +15,6 @@ function toggleCompleted(id) {
     }
     return task;
   });
- 
-  
 }
 
 function renderTask() {
@@ -34,7 +32,7 @@ formEl.addEventListener("submit", (e) => {
   const newTask = {
     task: titleCase(inputEl.value),
     isCompleted: false,
-    id: state.length,
+    id: randomID(),
   };
   state.unshift(newTask);
   renderTask();
@@ -42,8 +40,9 @@ formEl.addEventListener("submit", (e) => {
 });
 
 taskContainerEl.addEventListener("click", (e) => {
-  toggleCompleted(+e.target.id);
-  renderTask()
+  toggleCompleted(e.target.id);
+  state.sort((a, b) => a.isCompleted - b.isCompleted);
+  renderTask();
 });
 
 const showYear = document.querySelector(".show-year");
