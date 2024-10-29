@@ -6,13 +6,13 @@ const formEl = document.querySelector("[data-form]");
 const inputEl = document.querySelector("[data-user-input]");
 const taskContainerEl = document.querySelector("[data-task-container]");
 
-const tasks = [];
+const state = [];
 
 function renderTask() {
   taskContainerEl.innerHTML = "";
   const frag = document.createDocumentFragment();
-  tasks.forEach((task) => {
-    frag.appendChild(SingleTask(task.task, task.isCompleted));
+  state.forEach((task) => {
+    frag.appendChild(SingleTask(task.task, task.isCompleted,task.id));
   });
   taskContainerEl.appendChild(frag);
 }
@@ -23,18 +23,21 @@ formEl.addEventListener("submit", (e) => {
 
   const newTask = {
     task: titleCase(inputEl.value),
-    isCompleted: true,
-    id: tasks.length,
+    isCompleted: false,
+    id: state.length,
   };
 
-  tasks.unshift(newTask);
-
+  state.unshift(newTask);
+  
   renderTask();
 
-  console.log(tasks);
-  
   inputEl.value = "";
 });
+
+taskContainerEl.addEventListener("click",(e)=>{
+  console.log(e.target.id)
+  
+})
 
 const showYear = document.querySelector(".show-year");
 showYear.textContent = new Date().getFullYear();
