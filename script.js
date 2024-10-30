@@ -1,5 +1,4 @@
 import "./index.css";
-import localforage from "localforage";
 import SingleTask from "./components/SingleTask";
 import { titleCase, randomID } from "./utils";
 
@@ -9,35 +8,30 @@ const taskContainerEl = document.querySelector("[data-task-container]");
 
 let state = [];
 
-
-localforage.setDriver(localforage.LOCALSTORAGE);
-
-
-function updateLocal() {
-  localforage.setItem("tasks", state);
+// Load tasks from local storage
+function loadTasks() {
+  const savedTasks = localStorage.getItem("tasks");
+  if (savedTasks) {
+    state = JSON.parse(savedTasks);
+    renderTask();
+  }
 }
 
+// Save tasks to local storage
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(state));
+}
 
 function toggleCompleted(id) {
-  console.log(id);
   state = state.map((task) => {
     if (task.id === id) {
       return { ...task, isCompleted: !task.isCompleted };
     }
     return task;
   });
-
-  updateLocal();
+  saveTasks(); // Save the updated state
 }
 
-
-localforage.getItem("tasks").then((data) => {
-  state = data || [];
-  renderTask();
-});
-
-
-// MARK:Rnder
 function renderTask() {
   taskContainerEl.innerHTML = "";
   const frag = document.createDocumentFragment();
@@ -47,42 +41,29 @@ function renderTask() {
   taskContainerEl.appendChild(frag);
 }
 
-
-//MARK:Listener
-//On new task add
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
   if (!inputEl.value) return;
-  if (inputEl.value === ":clearall") return clearTasks();
   const newTask = {
     task: titleCase(inputEl.value),
     isCompleted: false,
     id: randomID(),
   };
   state.unshift(newTask);
-
-  updateLocal();
+  saveTasks(); // Save the new task
   renderTask();
   inputEl.value = "";
 });
 
-
-//On task toggle
 taskContainerEl.addEventListener("click", (e) => {
   toggleCompleted(e.target.id);
   state.sort((a, b) => a.isCompleted - b.isCompleted);
-
-  updateLocal();
   renderTask();
 });
 
-function clearTasks() {
-  state.length = 0;
-
-  updateLocal();
-  renderTask();
-  inputEl.value = "";
-}
-
+// Show current year
 const showYear = document.querySelector(".show-year");
 showYear.textContent = new Date().getFullYear();
+
+// Load tasks when the app starts
+loadTasks();
