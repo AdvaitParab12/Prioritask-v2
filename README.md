@@ -17,7 +17,7 @@
 
 # Preview
 
-<div style="display:flex;flex-direction:row;align-items:center;justify-content:center">
-<img src="./assets/desktop.png" alt="Laptop Image" style="width: 500px; height: auto;">
-<img src="./assets/mobile.png" alt="Mobile Image" style="width: 200px; height: auto;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center">
+    <img src="./assets/desktop.png" alt="Laptop Image" style="width: 500px; height: auto;">
+    <img src="./assets/mobile.png" alt="Mobile Image" style="width: 200px; height: auto;">
 </div>
