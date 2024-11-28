@@ -3,7 +3,6 @@ import localforage from "localforage";
 import SingleTask from "./components/SingleTask";
 import { sortBy } from "lodash";
 import { titleCase, randomID } from "./utils";
-import { sortBy } from "lodash";
 
 const formEl = document.querySelector("[data-form]");
 const inputEl = document.querySelector("[data-user-input]");
