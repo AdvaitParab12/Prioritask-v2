@@ -1,7 +1,9 @@
 import "./index.css";
 import localforage from "localforage";
 import SingleTask from "./components/SingleTask";
+import { sortBy } from "lodash";
 import { titleCase, randomID } from "./utils";
+import { sortBy } from "lodash";
 
 const formEl = document.querySelector("[data-form]");
 const inputEl = document.querySelector("[data-user-input]");
@@ -70,8 +72,9 @@ formEl.addEventListener("submit", (e) => {
 //On task toggle
 taskContainerEl.addEventListener("click", (e) => {
   toggleCompleted(e.target.id);
-  state.sort((a, b) => a.isCompleted - b.isCompleted);
+  // state.sort((a, b) => a.isCompleted - b.isCompleted);
 
+  state = sortBy(state,["isCompleted"])
   updateLocal();
   renderTask();
 });
